@@ -1,49 +1,51 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
-import { OrbitMark } from "@/components/brand/orbit-mark";
 import { Logo } from "@/components/brand/logo";
-import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { CtaAdjuster } from "@/components/home/cta-adjuster";
+import { contact } from "@/content/site";
 
 export function FinalCta() {
-  return (
-    <section className="final-cta" id="contact">
-      <Container className="final-cta__inner">
-        <div className="final-cta__orbit" data-reveal><OrbitMark id="final-orbit" /></div>
-        <div className="final-cta__copy" data-reveal>
-          <p className="eyebrow">Your move</p>
-          <h2>Find your next<br /><em>opportunity.</em></h2>
-          <p>
-            Join a cohort, share your story, collaborate across borders, or help another young idea
-            travel further.
-          </p>
-          <div>
-            <ButtonLink href="https://linktr.ee/Impactional.org" target="_blank" rel="noreferrer" size="lg">
-              See open opportunities <ArrowUpRight aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink href="mailto:contact.impactional@gmail.com?subject=Partnership%20with%20Impactional" variant="outline" size="lg">
-              Partner with us <ArrowRight aria-hidden="true" />
-            </ButtonLink>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
+  return <CtaAdjuster />;
 }
 
 export function Footer() {
   return (
     <footer className="footer">
       <Container className="footer__inner">
-        <Logo />
-        <p>An international youth-led community creating a #GenerationOfChange.</p>
-        <div className="footer__links">
-          <a href="mailto:contact.impactional@gmail.com">Email</a>
-          <a href="https://www.linkedin.com/company/impactional" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://www.instagram.com/impactional" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://www.tiktok.com/@impactional" target="_blank" rel="noreferrer">TikTok</a>
+        <div className="footer__brand">
+          <Logo />
+          <p>An international youth-led community creating a #GenerationOfChange.</p>
+          <div className="footer__socials">
+            <a href={`mailto:${contact.email}`}>Email</a>
+            <a href={contact.socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={contact.socials.instagram} target="_blank" rel="noreferrer">Instagram</a>
+            <a href={contact.socials.tiktok} target="_blank" rel="noreferrer">TikTok</a>
+          </div>
         </div>
-        <div className="footer__legal"><span>© {new Date().getFullYear()} Impactional</span><a href="#top">Back to top ↑</a></div>
+        <nav className="footer__nav" aria-label="Footer navigation">
+          <div>
+            <strong>Explore</strong>
+            <Link href="/programs">Programs</Link>
+            <Link href="/impact">Impact</Link>
+            <Link href="/media">Media</Link>
+            <Link href="/ambassadors">Ambassadors</Link>
+            <Link href="/people">People</Link>
+          </div>
+          <div>
+            <strong>Get involved</strong>
+            <a href={contact.opportunities} target="_blank" rel="noreferrer">Find a program</a>
+            <Link href="/ambassadors">Become an ambassador</Link>
+            <Link href="/partner">Partner with us</Link>
+          </div>
+          <div>
+            <strong>About</strong>
+            <Link href="/impact">Our impact</Link>
+            <Link href="/people">Our people</Link>
+            <a href={`mailto:${contact.email}`}>Contact</a>
+          </div>
+        </nav>
+        <div className="footer__legal"><span>© {new Date().getFullYear()} Impactional</span><a href="#main-content">Back to top ↑</a></div>
       </Container>
     </footer>
   );

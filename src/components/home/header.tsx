@@ -1,7 +1,8 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 import { Logo } from "@/components/brand/logo";
-import { navigation } from "@/content/home";
+import { siteNavigation } from "@/content/site";
 
 import { MobileNav } from "./mobile-nav";
 
@@ -11,24 +12,22 @@ export function Header() {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <a href="#top" className="site-header__brand" aria-label="Impactional home">
+      <Link href="/" className="site-header__brand" aria-label="Impactional home">
         <Logo />
-      </a>
+      </Link>
       <nav className="site-header__nav" aria-label="Primary navigation">
-        {navigation.map((item) => (
-          <a key={item.href} href={item.href}>
+        {siteNavigation.slice(0, 5).map((item) => (
+          <Link key={item.href} href={item.href}>
             {item.label}
-          </a>
+          </Link>
         ))}
       </nav>
-      <a
+      <Link
         className="site-header__opportunity"
-        href="https://linktr.ee/Impactional.org"
-        target="_blank"
-        rel="noreferrer"
+        href="/partner"
       >
-        Join a program <ArrowRight aria-hidden="true" />
-      </a>
+        Partner with us <ArrowRight aria-hidden="true" />
+      </Link>
       <MobileNav />
     </header>
   );

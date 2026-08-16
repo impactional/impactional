@@ -1,0 +1,13 @@
+import type { Metadata } from "next";
+
+import { SiteShell } from "@/components/layout/site-shell";
+import { Container } from "@/components/ui/container";
+import { PageIntro } from "@/components/ui/page-intro";
+import { accolades, history, impactMetrics, programImpact, reportMeta } from "@/content/impact";
+
+export const metadata: Metadata = { title: "The Impact Created — Impactional", description: "Impactional’s 2025–26 reach, program outcomes, landmarks, and accountability context." };
+
+export default function ImpactPage() {
+  return <SiteShell><PageIntro eyebrow={reportMeta.title} title={<>The impact<br /><em>created.</em></>} description="Numbers are not the mission. They are one way to stay accountable to the people, rooms, and ideas our network connects." /><section className="route-section impact-route"><Container><div className="route-metrics">{impactMetrics.map((metric) => <article key={metric.label}><strong>{metric.display}</strong><h2>{metric.label}</h2><p>{metric.period} · {metric.sourceLabel}</p></article>)}</div></Container><svg className="impact-route__map" viewBox="0 0 1440 500" fill="none" aria-hidden="true"><path d="M-40 380C180 80 370 500 585 235C770 8 914 409 1112 175C1248 14 1350 58 1490 226" /><circle cx="265" cy="275" r="8" /><circle cx="704" cy="172" r="8" /><circle cx="1144" cy="144" r="8" /></svg></section><Container className="route-section"><div className="split-heading"><div><p className="eyebrow">Program outcomes</p><h2>Different pathways.<br />Shared momentum.</h2></div><p>Program-level figures retain their own context instead of being blended into one oversized claim.</p></div><div className="impact-program-grid">{programImpact.map((item) => <article key={item.title}><p>{item.title}</p><strong>{item.stat}</strong><span>{item.detail}</span></article>)}</div></Container><section className="route-section route-section--tint"><Container><div className="split-heading"><div><p className="eyebrow">History</p><h2>The ripple, then<br /><em>and now.</em></h2></div><p>A concise view of how two exchange students grew an idea into an international youth-led community.</p></div><ol className="history-list">{history.map((event) => <li key={event.year}><span>{event.year}</span><div><h3>{event.title}</h3><p>{event.description}</p></div></li>)}</ol></Container></section><Container className="route-section"><div className="split-heading"><div><p className="eyebrow">Rooms we entered</p><h2>Young voices belong<br />at the table.</h2></div><p>Selected landmarks from the report. Detailed accreditation will grow as internal source material is approved.</p></div><ul className="accolade-list">{accolades.map((item) => <li key={item}>{item}</li>)}</ul></Container></SiteShell>;
+}
+

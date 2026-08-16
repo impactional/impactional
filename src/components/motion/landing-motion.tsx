@@ -74,47 +74,6 @@ export function LandingMotion({ children }: { children: ReactNode }) {
         });
       });
 
-      const manifestoWords = gsap.utils.toArray<HTMLElement>("[data-manifesto-focus]");
-      if (manifestoWords.length) {
-        mm.add("(min-width: 900px)", () => {
-          gsap.fromTo(
-            manifestoWords,
-            { filter: "blur(10px)", opacity: 0.16 },
-            {
-              filter: "blur(0px)",
-              opacity: 1,
-              stagger: 0.035,
-              duration: 0.45,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: "[data-manifesto-stage]",
-                start: "top 62%",
-                once: true,
-              },
-            },
-          );
-        });
-
-        mm.add("(max-width: 899px)", () => {
-          gsap.fromTo(
-            manifestoWords,
-            { filter: "blur(5px)", opacity: 0.2 },
-            {
-              filter: "blur(0px)",
-              opacity: 1,
-              stagger: 0.035,
-              duration: 0.4,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: ".mission__manifesto",
-                start: "top 72%",
-                once: true,
-              },
-            },
-          );
-        });
-      }
-
       document.querySelectorAll<HTMLElement>("[data-count]").forEach((element) => {
         const target = Number(element.dataset.count);
         const format = element.dataset.format ?? "plain";
@@ -127,18 +86,25 @@ export function LandingMotion({ children }: { children: ReactNode }) {
           onUpdate: () => {
             const rounded = Math.round(state.value);
             element.textContent =
-              format === "thousands"
+              format === "currency"
+                ? `≈$${new Intl.NumberFormat("en-US").format(rounded)}`
+                : format === "thousands"
                 ? `${new Intl.NumberFormat("en-US").format(rounded)}+`
                 : format === "compact"
                   ? `${(rounded / 1000).toFixed(1)}k+`
                   : format === "k"
-                    ? `${rounded}k+`
+                    ? rounded >= 1000000
+                      ? `${Math.round(rounded / 1000000)}M+`
+                      : `${Math.round(rounded / 1000)}K+`
                     : String(rounded);
+          },
+          onComplete: () => {
+            element.textContent = element.dataset.final ?? element.textContent;
           },
         });
       });
 
-      mm.add("(min-width: 960px)", () => {
+      mm.add("(min-width: 1101px)", () => {
         const heroTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: "[data-hero]",
@@ -171,17 +137,20 @@ export function LandingMotion({ children }: { children: ReactNode }) {
           });
         }
 
-        gsap.to("[data-spotlight-image]", {
-          clipPath: "inset(0% 0% 0% 0% round 2rem)",
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "[data-spotlight]",
-            start: "top 75%",
-            end: "center 48%",
-            scrub: 1,
-          },
-        });
+        const spotlightImage = document.querySelector<HTMLElement>("[data-spotlight-image]");
+        if (spotlightImage) {
+          gsap.to(spotlightImage, {
+            clipPath: "inset(0% 0% 0% 0% round 2rem)",
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: spotlightImage.closest("[data-spotlight]") ?? spotlightImage,
+              start: "top 75%",
+              end: "center 48%",
+              scrub: 1,
+            },
+          });
+        }
 
         gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((element, index) => {
           gsap.to(element, {

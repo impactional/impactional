@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata: Metadata = {
   title: "Impactional Design System",
@@ -74,6 +75,13 @@ export default function DesignSystemPage() {
           <div className="ds__section-head"><span>05</span><div><h2>Usage principles</h2><p>Keep the system expressive without making every surface compete for attention.</p></div></div>
           <div className="ds__principles"><Card><strong>01</strong><h3>Movement has meaning.</h3><p>Every transition should express connection, progression, or a change of perspective.</p></Card><Card><strong>02</strong><h3>People stay authentic.</h3><p>Generated artwork creates atmosphere; documentary proof always comes from real Impactional media.</p></Card><Card><strong>03</strong><h3>Clarity wins.</h3><p>Typography, focus, contrast, and content order remain dependable when motion disappears.</p></Card></div>
           <ButtonLink href="/" size="lg">View the landing page →</ButtonLink>
+        </section>
+
+        <section className="ds__section ds__section--last">
+          <div className="ds__section-head"><span>06</span><div><h2>Editorial route states</h2><p>Interior routes use the same generous gutters, light surfaces, and honest handling for content awaiting approval.</p></div></div>
+          <EmptyState title="Approved profiles are coming next">Draft people and ambassador data never enters public HTML until consent and provenance are confirmed.</EmptyState>
+          <div className="term-filter" aria-label="Static filter example"><button type="button" aria-pressed="true">Term 2025</button><button type="button" aria-pressed="false">Term 2024</button></div>
+          <p className="ds__reduced">Light-only is a system constraint: operating-system dark preference never changes the canvas. Motion-off keeps all final text, paths, metrics, and navigation available without pinning or interpolation.</p>
         </section>
       </Container>
     </main>

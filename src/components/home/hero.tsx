@@ -1,4 +1,4 @@
-import { ArrowRight, Globe2, Star, UsersRound } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 import { OrbitMark } from "@/components/brand/orbit-mark";
@@ -10,33 +10,41 @@ export function Hero() {
     <section className="hero" id="top" data-hero>
       <div className="hero__ambient" aria-hidden="true" />
       <div className="hero__dot-grid" aria-hidden="true" />
-      <div className="hero__copy" data-hero-copy>
-        <p className="hero__eyebrow" data-hero-enter>
-          Youth-led. Globally connected.
-        </p>
-        <h1>
-          <span className="hero__line-wrap">
-            <span data-hero-line>Building the next</span>
-          </span>
-          <span className="hero__line-wrap">
-            <span data-hero-line>generation of</span>
-          </span>
-          <span className="hero__line-wrap hero__line-wrap--accent">
-            <span data-hero-line>changemakers.</span>
-          </span>
-        </h1>
-        <p className="hero__lede" data-hero-enter>
-          We equip young people with the skills, networks, and opportunities they need to lead,
-          collaborate, and create measurable impact in their communities and around the world.
-        </p>
-        <div className="hero__actions" data-hero-enter>
-          <ButtonLink href="#programs" size="lg">
-            Explore programs <ArrowRight aria-hidden="true" />
-          </ButtonLink>
-          <ButtonLink href="#contact" variant="outline" size="lg">
-            Partner with us <ArrowRight aria-hidden="true" />
-          </ButtonLink>
+      <div className="hero__inner">
+        <div className="hero__copy" data-hero-copy>
+          <p className="hero__eyebrow" data-hero-enter>
+            Youth-led. Globally connected.
+          </p>
+          <h1>
+            <span className="hero__line-wrap">
+              <span data-hero-line>Building the next</span>
+            </span>
+            <span className="hero__line-wrap">
+              <span data-hero-line>generation of</span>
+            </span>
+            <span className="hero__line-wrap hero__line-wrap--accent">
+              <span data-hero-line>changemakers.</span>
+            </span>
+          </h1>
+          <p className="hero__lede" data-hero-enter>
+            We equip young people with the skills, networks, and opportunities to lead,
+            collaborate, and create measurable impact in their communities.
+          </p>
+          <div className="hero__actions" data-hero-enter>
+            <ButtonLink href="/programs" size="lg">
+              Explore our programs <ArrowRight aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink href="/impact" variant="outline" size="lg">
+              See our impact <ArrowRight aria-hidden="true" />
+            </ButtonLink>
+          </div>
+          <dl className="hero__proof" data-hero-enter aria-label="Impactional at a glance">
+            <div><dt>2,000+</dt><dd>Changemakers</dd></div>
+            <div><dt>50+</dt><dd>Countries</dd></div>
+            <div><dt>Since 2021</dt><dd>Youth-led</dd></div>
+          </dl>
         </div>
+
       </div>
 
       <div className="hero__visual" data-hero-enter>
@@ -50,19 +58,10 @@ export function Hero() {
           fill
           priority
           loading="eager"
-          sizes="(max-width: 900px) 100vw, 58vw"
+          sizes="(max-width: 1100px) 100vw, 58vw"
           className="hero__photo"
           data-hero-photo
         />
-        <div className="hero__chip hero__chip--leadership" data-hero-enter>
-          <Star aria-hidden="true" /> <span>Leadership</span>
-        </div>
-        <div className="hero__chip hero__chip--community" data-hero-enter>
-          <UsersRound aria-hidden="true" /> <span>Community</span>
-        </div>
-        <div className="hero__chip hero__chip--global" data-hero-enter>
-          <Globe2 aria-hidden="true" /> <span>Global exposure</span>
-        </div>
       </div>
     </section>
   );

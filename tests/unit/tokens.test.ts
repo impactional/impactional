@@ -18,4 +18,11 @@ describe("brand token anchors", () => {
   it("defines reduced-motion behavior", () => {
     expect(css).toContain("prefers-reduced-motion: reduce");
   });
+
+  it("remains an explicitly light-only system", () => {
+    expect(css).toContain("color-scheme: light");
+    expect(css).not.toContain("prefers-color-scheme: dark");
+    expect(css).not.toMatch(/(^|[\s,{])\.dark([\s,{:.#]|$)/);
+    expect(css).not.toContain('data-theme="dark"');
+  });
 });

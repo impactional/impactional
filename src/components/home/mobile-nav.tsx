@@ -2,10 +2,11 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
-import { navigation } from "@/content/home";
+import { siteNavigation } from "@/content/site";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -26,11 +27,11 @@ export function MobileNav() {
           </div>
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
           <nav aria-label="Mobile navigation" className="nav-drawer__links">
-            {navigation.map((item, index) => (
-              <a key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            {siteNavigation.map((item, index) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
                 <span>0{index + 1}</span>
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="nav-drawer__footer">

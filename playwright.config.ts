@@ -8,11 +8,12 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "pnpm dev",
+    command: "npm run dev",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: true,
   },
   projects: [
+    { name: "small-mobile", use: { browserName: "chromium", viewport: { width: 360, height: 800 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true } },
     {
       name: "mobile",
       use: {
@@ -23,6 +24,9 @@ export default defineConfig({
         hasTouch: true,
       },
     },
+    { name: "tablet", use: { browserName: "chromium", viewport: { width: 768, height: 1024 }, hasTouch: true } },
+    { name: "laptop", use: { browserName: "chromium", viewport: { width: 1280, height: 800 } } },
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
+    { name: "wide", use: { browserName: "chromium", viewport: { width: 1440, height: 900 } } },
   ],
 });
