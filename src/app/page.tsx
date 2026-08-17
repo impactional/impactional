@@ -4,7 +4,7 @@ import { Header } from "@/components/home/header";
 import { Hero } from "@/components/home/hero";
 import { Impact } from "@/components/home/impact";
 import { Mission } from "@/components/home/mission";
-import { MediaPreview } from "@/components/home/media-preview";
+import { CompanyProfile } from "@/components/home/company-profile";
 import { NetworkPreview } from "@/components/home/network-preview";
 import { Programs } from "@/components/home/programs";
 import { Stories } from "@/components/home/stories";
@@ -19,7 +19,7 @@ export default function Home() {
         <Mission />
         <Programs />
         <Impact />
-        <MediaPreview />
+        <CompanyProfile />
         <Stories />
         <CotmSpotlight />
         <NetworkPreview />

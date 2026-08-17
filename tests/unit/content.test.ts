@@ -31,8 +31,8 @@ describe("homepage content contracts", () => {
     expect(stories.every((story) => new URL(story.href).protocol === "https:")).toBe(true);
   });
 
-  it("keeps temporary video content visibly identified", () => {
-    expect(videos[0]).toMatchObject({ id: "dQw4w9WgXcQ", placeholder: true });
+  it("ships the approved company-profile video", () => {
+    expect(videos[0]).toMatchObject({ id: "G8zMgVGodXM", placeholder: false });
     expect(new URL(videos[0].sourceUrl).protocol).toBe("https:");
   });
 

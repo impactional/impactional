@@ -15,12 +15,12 @@ export type VideoEntry = {
 
 export const videos: VideoEntry[] = [
   {
-    id: "dQw4w9WgXcQ",
-    title: "Impactional company profile — temporary slot",
+    id: "G8zMgVGodXM",
+    title: "Impactional company profile",
     category: "Company profile",
-    description: "This temporary media slot will be replaced with the approved Impactional company-profile video.",
-    placeholder: true,
-    sourceUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    description: "Who we are, why we move, and what happens when young people take the lead — in three minutes.",
+    placeholder: false,
+    sourceUrl: "https://www.youtube.com/watch?v=G8zMgVGodXM",
   },
 ];
 

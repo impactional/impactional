@@ -26,7 +26,7 @@ export function Header() {
         className="site-header__opportunity"
         href="/partner"
       >
-        Partner with us <ArrowRight aria-hidden="true" />
+        Contact us <ArrowRight aria-hidden="true" />
       </Link>
       <MobileNav />
     </header>
