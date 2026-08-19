@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 
+import { useMotionEnabled } from "@/components/motion/use-motion-enabled";
 import { cn } from "@/lib/cn";
 
 export function InteractiveCard({ className, ...props }: HTMLMotionProps<"article">) {
-  const reduced = useReducedMotion();
+  const reduced = !useMotionEnabled();
   return (
     <motion.article
       className={cn("interactive-card", className)}

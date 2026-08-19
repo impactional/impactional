@@ -1122,14 +1122,20 @@ main:has(> .final-cta) + .footer { z-index: 6; margin-top: -96px; padding-top: 7
   .network-person-card { width: 174px; }
 }
 
+/* Fallback only. The boot script in <head> stamps html[data-motion] before first paint,
+   so these rules apply for no-JS readers and never fight the resolved preference.
+   Motion is on by default because iOS Low Power Mode forces `reduce` browser-wide;
+   readers opt out with ?motion=off (or ?motion=system to follow the OS). */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-  .partners__marquee > div { animation: none; }
-  .network-marquee__track { animation: none; }
-  [data-parallax], [data-spotlight-image] { transform: none !important; }
+  html:not([data-motion]) { scroll-behavior: auto; }
+  html:not([data-motion]) *, html:not([data-motion]) *::before, html:not([data-motion]) *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  html:not([data-motion]) .partners__marquee > div { animation: none; }
+  html:not([data-motion]) .network-marquee__track { animation: none; }
+  html:not([data-motion]) [data-parallax], html:not([data-motion]) [data-spotlight-image] { transform: none !important; }
 }
 
+html[data-motion="off"] { scroll-behavior: auto; }
+[data-motion="off"] *, [data-motion="off"] *::before, [data-motion="off"] *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 [data-motion="off"] .partners__marquee > div { animation: none; }
 [data-motion="off"] .network-marquee__track { animation: none; }
 [data-motion="off"] [data-parallax], [data-motion="off"] [data-spotlight-image] { transform: none !important; }

@@ -21,6 +21,7 @@ import ctaPersonRight from "@/assets/images/cta-person-right.png";
 import ctaPersonRightMobile from "@/assets/images/cta-person-right-full.png";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { isMotionEnabled } from "@/lib/motion-prefs";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -149,9 +150,7 @@ export function CtaAdjuster() {
     () => {
       const section = sectionRef.current;
       if (!section) return;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const forcedOff = new URLSearchParams(window.location.search).get("motion") === "off";
-      if (reduced || forcedOff) return;
+      if (!isMotionEnabled()) return;
 
       const words = section.querySelectorAll<HTMLElement>("[data-cta-word]");
       const support = section.querySelectorAll<HTMLElement>("[data-cta-support]");

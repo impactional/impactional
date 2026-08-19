@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Montserrat } from "next/font/google";
 
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll-provider";
+import { MOTION_BOOT_SCRIPT } from "@/lib/motion-prefs";
 
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -43,7 +44,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${brandey.variable}`}>
+    // The motion boot script stamps data-motion before hydration, so the server
+    // markup deliberately differs from what React sees on the client.
+    <html lang="en" className={`${montserrat.variable} ${brandey.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Resolves the motion preference before first paint so nothing flashes. */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT_SCRIPT }} />
+      </head>
       <body>
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>

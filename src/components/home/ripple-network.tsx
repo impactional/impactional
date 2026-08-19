@@ -13,6 +13,7 @@ import parliamentImage from "@/assets/images/european-parliament.jpg";
 import teamImage from "@/assets/images/global-team.png";
 import joshuaImage from "@/assets/images/joshua-steib.jpg";
 import workshopImage from "@/assets/images/workshop-small.jpg";
+import { isMotionEnabled } from "@/lib/motion-prefs";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -112,9 +113,7 @@ export function RippleNetwork() {
     () => {
       const root = rootRef.current;
       if (!root) return;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const forcedOff = new URLSearchParams(window.location.search).get("motion") === "off";
-      if (reduced || forcedOff) return;
+      if (!isMotionEnabled()) return;
 
       const q = gsap.utils.selector(root);
       const line1 = q("[data-ripple-line1]");

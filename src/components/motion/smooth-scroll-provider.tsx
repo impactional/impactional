@@ -3,6 +3,8 @@
 import { ReactLenis, type LenisRef } from "lenis/react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+
+import { applyMotionAttribute } from "@/lib/motion-prefs";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,9 +15,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const forcedOff = new URLSearchParams(window.location.search).get("motion") === "off";
-      setEnabled(!reduced && !forcedOff && window.matchMedia("(pointer: fine)").matches);
+      setEnabled(applyMotionAttribute() && window.matchMedia("(pointer: fine)").matches);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);

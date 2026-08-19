@@ -1,17 +1,18 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, MapPin, Sparkles, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
+import { useMotionEnabled } from "@/components/motion/use-motion-enabled";
 import { Container } from "@/components/ui/container";
 import { cotmEntries } from "@/content/cotm";
 import { contact } from "@/content/site";
 
 export function CotmSpotlight() {
   const [activeIndex, setActiveIndex] = useState(1);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = !useMotionEnabled();
   const active = cotmEntries[activeIndex];
 
   const selectRelative = (direction: -1 | 1) => {

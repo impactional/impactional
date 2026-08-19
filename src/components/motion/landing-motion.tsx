@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { type ReactNode, useRef } from "react";
 
+import { applyMotionAttribute } from "@/lib/motion-prefs";
+
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function LandingMotion({ children }: { children: ReactNode }) {
@@ -13,10 +15,8 @@ export function LandingMotion({ children }: { children: ReactNode }) {
   useGSAP(
     () => {
       if (!root.current) return;
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const forcedOff = new URLSearchParams(window.location.search).get("motion") === "off";
 
-      if (reduced || forcedOff) {
+      if (!applyMotionAttribute()) {
         root.current.dataset.motion = "off";
         return;
       }
