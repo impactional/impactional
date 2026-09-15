@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { ambassadorTerms, publishedAmbassadors } from "@/content/ambassadors";
@@ -36,8 +38,13 @@ describe("homepage content contracts", () => {
     expect(new URL(videos[0].sourceUrl).protocol).toBe("https:");
   });
 
-  it("does not expose unapproved people or ambassador placeholders", () => {
-    expect(publishedPeople).toEqual([]);
+  it("publishes the supplied member roster with local portraits and keeps ambassador drafts hidden", () => {
+    expect(publishedPeople).toHaveLength(31);
+    expect(new Set(publishedPeople.map((person) => person.slug)).size).toBe(publishedPeople.length);
+    expect(publishedPeople.every((person) => person.consentConfirmed && person.sourceLabel && person.isPublished)).toBe(true);
+    const portraits = publishedPeople.filter((person) => person.portrait);
+    expect(portraits).toHaveLength(28);
+    expect(portraits.every((person) => person.imageAlt && person.portraitSource && existsSync(resolve(process.cwd(), "public", person.portrait!.slice(1))))).toBe(true);
     expect(publishedAmbassadors).toEqual([]);
     expect(ambassadorTerms).toEqual(["2025", "2024"]);
   });

@@ -3,10 +3,16 @@ import localFont from "next/font/local";
 import { Montserrat } from "next/font/google";
 
 import { SmoothScrollProvider } from "@/components/motion/smooth-scroll-provider";
+import { GycAnnouncement } from "@/components/announcements/gyc-announcement";
 import { MOTION_BOOT_SCRIPT } from "@/lib/motion-prefs";
+import { siteUrl } from "@/content/site";
 
 import "lenis/dist/lenis.css";
 import "./globals.css";
+import "@/styles/editorial-pages.css";
+import "@/styles/gyc-announcement.css";
+import "@/styles/mobile-nav.css";
+import "@/styles/home-programs.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -25,7 +31,7 @@ const brandey = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.impactional.org"),
+  metadataBase: new URL(siteUrl),
   title: "Impactional — Your ideas can move the world",
   description:
     "An international youth-led community connecting young changemakers with the people, perspectives, and tools to create meaningful change.",
@@ -52,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT_SCRIPT }} />
       </head>
       <body>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <SmoothScrollProvider>{children}<GycAnnouncement /></SmoothScrollProvider>
       </body>
     </html>
   );

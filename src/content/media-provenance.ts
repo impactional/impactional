@@ -1,4 +1,11 @@
+import { publishedPeople } from "@/content/people";
+
 export const mediaProvenance = [
+  ...publishedPeople.filter((person) => person.portrait && person.portraitSource).map((person) => ({
+    file: person.portrait!,
+    source: person.portraitSource!,
+    usage: `Member portrait for ${person.name}, supplied for Impactional member introductions 26.2`,
+  })),
   {
     file: "world-mercator.svg",
     source: "https://www.naturalearthdata.com/downloads/110m-physical-vectors/110m-land/",

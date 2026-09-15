@@ -1,5 +1,10 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { GYC_SESSION_KEY } from "../../src/content/global-youth-circle";
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => window.sessionStorage.setItem(key, "1"), GYC_SESSION_KEY);
+});
 
 test("landing page is complete and has no critical accessibility violations", async ({ page }) => {
   await page.goto("/?motion=off");
@@ -14,17 +19,18 @@ test("landing page is complete and has no critical accessibility violations", as
   expect(results.violations.filter((violation) => violation.impact === "critical")).toEqual([]);
 });
 
-test("programs remain vertically accessible on mobile and use first-party details", async ({ page }) => {
+test("program choices work on mobile and use first-party details", async ({ page }) => {
   await page.goto("/?motion=off");
   const programs = page.locator("#programs");
   await programs.scrollIntoViewIfNeeded();
   await expect(programs.getByText("Changemaker Catalyst Programme")).toBeVisible();
-  await expect(programs.getByText("Peace, Education, & Global Innovation (PEGI)")).toBeVisible();
-  const links = programs.getByRole("link", { name: /Discover the program/ });
-  await expect(links).toHaveCount(4);
-  await expect(links.first()).toHaveAttribute("href", "/programs/changemaker-catalyst-programme");
-  await links.first().click();
-  await expect(page).toHaveURL(/\/programs\/changemaker-catalyst-programme$/);
+  await expect(programs.getByRole("tab")).toHaveCount(4);
+  await programs.getByRole("tab", { name: "PEGI", exact: true }).click();
+  await expect(programs.getByRole("heading", { name: "Peace, Education, & Global Innovation (PEGI)" })).toBeVisible();
+  const link = programs.getByRole("link", { name: "Step into PEGI" });
+  await expect(link).toHaveAttribute("href", "/programs/pegi");
+  await link.click();
+  await expect(page).toHaveURL(/\/programs\/pegi$/);
 });
 
 test("primary content routes have unique readable shells", async ({ page }) => {
@@ -43,7 +49,7 @@ test("primary content routes have unique readable shells", async ({ page }) => {
 
 test("video facade defers YouTube iframe until activation", async ({ page }) => {
   await page.goto("/media?motion=off");
-  await expect(page.getByText("Placeholder — replace before launch")).toBeVisible();
+  await expect(page.getByText("Placeholder — replace before launch")).toHaveCount(0);
   await expect(page.locator("iframe")).toHaveCount(0);
   await page.getByRole("button", { name: /Play Impactional company profile/ }).click();
   await expect(page.locator("iframe")).toHaveCount(1);
@@ -54,14 +60,14 @@ test("ambassador term filter persists through the URL", async ({ page }) => {
   await page.goto("/ambassadors?term=2025&motion=off");
   await page.getByRole("button", { name: "Term 2024" }).click();
   await expect(page).toHaveURL(/term=2024/);
-  await expect(page.getByText("Term 2024 profiles are awaiting approval")).toBeVisible();
+  await expect(page.getByText("Term 2024 / Introductions coming soon")).toBeVisible();
 });
 
 test("impact values are server-rendered with their reporting period", async ({ page }) => {
   await page.goto("/impact?motion=off");
   await expect(page.getByText("53K+")).toBeVisible();
   await expect(page.getByText("≈$3,300")).toBeVisible();
-  await expect(page.getByText("3M+", { exact: true })).toBeVisible();
+  await expect(page.locator("#report-numbers").getByText("3M+", { exact: true })).toBeVisible();
   await expect(page.getByText(/2025–26 · Impactional Impact Report 2025–26/).first()).toBeVisible();
 });
 

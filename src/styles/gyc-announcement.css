@@ -1,0 +1,86 @@
+.gyc-art { position: relative; isolation: isolate; overflow: hidden; min-height: 550px; padding: 35px; background: radial-gradient(ellipse at 95% 30%, #f794b2, transparent 60%), linear-gradient(125deg, #fff1df, #f4bed0); color: #ae214e; }
+.gyc-art__label { position: relative; z-index: 2; font-size: .56rem; font-weight: 750; letter-spacing: .1em; }
+.gyc-art__rings { position: absolute; z-index: -1; width: 120%; aspect-ratio: 1; top: 15%; right: -60%; }
+.gyc-art__rings > span { position: absolute; inset: 0; border: 1px solid rgb(150 32 80 / .24); border-radius: 50%; }
+.gyc-art__rings > span:nth-child(2) { inset: 12%; background: rgb(255 250 238 / .15); }
+.gyc-art__rings > span:nth-child(3) { inset: 24%; }
+.gyc-art__rings > span:nth-child(4) { inset: 36%; background: rgb(255 250 238 / .25); }
+.gyc-art__globe { position: absolute; right: -15px; top: 40px; width: 160px; height: 160px; opacity: .3; rotate: -18deg; }
+.gyc-art__type { position: relative; width: fit-content; margin-top: 72px; font-size: clamp(3.9rem, 6vw, 6.5rem); font-weight: 700; line-height: .9; letter-spacing: -.07em; }
+.gyc-art__type em { font-family: var(--font-brandey), Georgia, serif; font-weight: 500; }
+.gyc-art__type > span { position: absolute; right: -50px; bottom: -24px; color: #ae214e; font-size: .9em; rotate: 15deg; }
+.gyc-art__note { display: block; margin-top: 32px; font-family: var(--font-brandey), Georgia, serif; font-size: 1.3rem; line-height: 1.2; rotate: -4deg; }
+.gyc-art__chip { position: absolute; right: 22px; bottom: 27px; border: 1px solid #a22353; border-radius: 50%; padding: 22px 12px; color: #a22353; font-size: .47rem; font-weight: 750; rotate: -12deg; }
+.gyc-launcher { position: fixed; z-index: 55; right: 22px; bottom: max(22px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 12px; min-height: 60px; border: 1px solid #e8c5d2; border-radius: 99px; padding: 10px 19px; background: #fff9f2; color: #a20c5b; box-shadow: 0 8px 28px rgb(94 29 58 / .15); cursor: pointer; text-align: left; }
+.gyc-launcher > span { font-size: .7rem; font-weight: 750; }
+.gyc-launcher small { display: block; margin-bottom: 3px; font-size: .48rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.gyc-launcher:hover { background: #fbe2ed; border-color: #b60e66; }
+.gyc-backdrop { position: fixed; z-index: 90; inset: 0; background: rgb(30 19 24 / .42); backdrop-filter: blur(7px); transition: opacity .25s; }
+.gyc-backdrop[data-starting-style], .gyc-backdrop[data-ending-style] { opacity: 0; }
+.gyc-popup { position: fixed; z-index: 91; top: 50%; left: 50%; display: grid; grid-template-columns: .85fr 1.15fr; width: min(960px, calc(100vw - 40px)); max-height: calc(100dvh - 40px); overflow-y: auto; overscroll-behavior: contain; border: 1px solid rgb(255 255 255 / .8); border-radius: 24px; background: #fffdf8; box-shadow: 0 36px 100px rgb(20 20 20 / .22); transform: translate(-50%, -50%); transition: opacity .25s, scale .25s; outline: none; }
+.gyc-popup[data-starting-style], .gyc-popup[data-ending-style] { opacity: 0; scale: .97; }
+.gyc-popup__close { position: absolute; z-index: 3; top: 16px; right: 16px; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid #dfd5ce; border-radius: 50%; background: #fffdf8; color: #4c333c; cursor: pointer; }
+.gyc-popup__close:hover { background: #f6dce9; }
+.gyc-popup__copy { display: flex; flex-direction: column; justify-content: center; padding: 55px 40px 34px; }
+.gyc-popup .eyebrow { display: flex; align-items: center; gap: 7px; color: #a20c5b; font-size: .56rem; }
+.gyc-popup .eyebrow > span { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: #b60e66; }
+.gyc-popup__title { margin: 22px 0; font-size: clamp(2.1rem, 3vw, 2.9rem); font-weight: 650; line-height: 1.07; letter-spacing: -.05em; }
+.gyc-popup__title em { color: #b60e66; font-family: var(--font-brandey), Georgia, serif; font-weight: 500; }
+.gyc-popup__name { margin: 0 0 12px; color: #a20c5b; font-size: .9rem; font-weight: 700; }
+.gyc-popup__description { margin: 0; color: var(--text-secondary); font-size: .77rem; line-height: 1.85; }
+.gyc-popup__facts { display: grid; gap: 12px; margin: 25px 0; }
+.gyc-popup__facts > span { display: flex; align-items: center; gap: 10px; color: #675a5c; font-size: .67rem; line-height: 1.5; }
+.gyc-popup__facts svg { flex-shrink: 0; color: #a20c5b; }
+.gyc-popup__copy > .button { width: 100%; gap: 15px; font-size: .7rem; }
+.gyc-popup__later { align-self: center; min-height: 44px; margin-top: 9px; border: 0; background: transparent; color: var(--text-secondary); font-size: .68rem; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.gyc-art--compact { min-height: 100%; }
+.gyc-art--compact .gyc-art__type { font-size: 4.7rem; }
+.gyc-art--compact .gyc-art__chip { font-size: .43rem; padding: 20px 10px; }
+.gyc-banner { position: relative; display: flex; align-items: center; gap: 32px; overflow: hidden; border: 1px solid #eac1cf; border-radius: 16px; padding: 32px 38px; background: radial-gradient(ellipse at 100% 100%, #f5bad0, transparent 70%), #fff0e8; }
+.gyc-banner__mark { flex: 0 0 100px; display: grid; place-items: center; aspect-ratio: 1; border: 1px solid #d889a5; border-radius: 50%; color: #ae214e; }
+.gyc-banner__mark svg { width: 60px; height: 60px; }
+.gyc-banner .eyebrow { margin-bottom: 14px; color: #a22353; font-size: .58rem; }
+.gyc-banner h2 { margin: 0; color: #922247; font-family: var(--font-brandey), Georgia, serif; font-size: 2.8rem; font-weight: 500; letter-spacing: -.035em; line-height: 1.1; }
+.gyc-banner p:not(.eyebrow) { margin: 13px 0 0; color: #7a5360; font-size: .77rem; line-height: 1.65; }
+.gyc-banner > a { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px 16px; flex-shrink: 0; margin-left: auto; color: #922247; font-size: .75rem; font-weight: 750; }
+.gyc-banner > a > span { grid-column: 1 / -1; justify-self: start; border: 1px solid #d796af; border-radius: 99px; padding: 6px 10px; font-size: .53rem; font-weight: 600; }
+.gyc-banner > a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 800px) {
+  .gyc-banner { gap: 24px; padding: 28px; flex-wrap: wrap; }
+  .gyc-banner__mark { flex-basis: 66px; }
+  .gyc-banner__mark svg { width: 42px; height: 42px; }
+  .gyc-banner > a { margin: 0; grid-template-columns: auto auto auto; gap: 16px; }
+  .gyc-banner > a > span { grid-column: auto; }
+  .gyc-banner h2 { font-size: 2.4rem; }
+  .gyc-popup { grid-template-columns: .75fr 1.25fr; }
+  .gyc-popup__copy { padding-inline: 28px; }
+  .gyc-art--compact { padding: 28px 22px; }
+  .gyc-art--compact .gyc-art__type { font-size: 3.7rem; }
+  .gyc-art--compact .gyc-art__note { font-size: 1.15rem; }
+}
+@media (max-width: 600px) {
+  .gyc-launcher { right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); min-height: 52px; padding: 9px 14px; gap: 9px; }
+  .gyc-launcher > span { font-size: .61rem; }
+  .gyc-launcher small { font-size: .44rem; }
+  .gyc-popup { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); grid-template-columns: 1fr; border-radius: 18px; }
+  .gyc-art--compact { min-height: 205px; height: 205px; padding: 23px; }
+  .gyc-art--compact .gyc-art__label { font-size: .48rem; }
+  .gyc-art--compact .gyc-art__type { margin-top: 18px; font-size: clamp(2.5rem, 13vw, 3rem); line-height: .84; }
+  .gyc-art--compact .gyc-art__note { position: absolute; right: 18px; bottom: 25px; max-width: 30%; margin: 0; font-size: clamp(.75rem, 3.5vw, .9rem); line-height: 1.12; }
+  .gyc-art--compact .gyc-art__chip { display: none; }
+  .gyc-art--compact .gyc-art__globe { top: 12px; right: 40px; width: 105px; height: 105px; }
+  .gyc-art--compact .gyc-art__type > span { display: none; }
+  .gyc-popup__copy { padding: 26px 23px 14px; }
+  .gyc-popup__title { margin-block: 15px; font-size: 2.2rem; }
+  .gyc-popup__name { font-size: .8rem; }
+  .gyc-popup__description { font-size: .72rem; }
+  .gyc-popup__facts { gap: 10px; margin-block: 18px; }
+  .gyc-popup__copy > .button { font-size: .63rem; padding-inline: 15px; }
+  .gyc-popup__close { position: sticky; top: 10px; right: auto; justify-self: end; grid-column: 1; grid-row: 1; margin: 10px 10px -48px 0; }
+  .gyc-popup > .gyc-art { grid-column: 1; grid-row: 1; }
+  .gyc-popup__copy { grid-row: 2; }
+  .gyc-banner { display: block; padding: 27px 24px; }
+  .gyc-banner__mark { width: 58px; margin-bottom: 20px; }
+  .gyc-banner h2 { font-size: 2.45rem; }
+  .gyc-banner > a { display: flex; flex-wrap: wrap; margin-top: 23px; gap: 12px; }
+}

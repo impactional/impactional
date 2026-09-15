@@ -5,33 +5,46 @@ import doodleBird from "@/assets/illustrations/doodle-bird.svg";
 import doodleFlower from "@/assets/illustrations/doodle-flower-bloom.svg";
 import doodleLeaves from "@/assets/illustrations/doodle-leaves.svg";
 import { Container } from "@/components/ui/container";
+import { peopleDivisions, personDivisionLabel, personInitials, publishedPeople, type Person } from "@/content/people";
 
 type PreviewCard = {
   name: string;
   role: string;
-  location: string;
+  detail: string;
+  href?: string;
   initials: string;
+  portrait?: string;
+  imageAlt?: string;
+  portraitPosition?: string;
   tone: "pink" | "blue" | "mint" | "amber";
 };
 
 type LogoCard = {
   name: string;
   logo: string;
-}
+};
 
-// Placeholder identities only; replace with consent-approved HR and Ambassador records.
-const memberCards: PreviewCard[] = [
-  { name: "Rafi Pranata", role: "Programs", location: "Indonesia", initials: "RP", tone: "pink" },
-  { name: "Lea Martin", role: "Partnerships", location: "France", initials: "LM", tone: "blue" },
-  { name: "Nadia Putri", role: "Creative", location: "Indonesia", initials: "NP", tone: "mint" },
-  { name: "Diego Morales", role: "Community", location: "Spain", initials: "DM", tone: "amber" },
-];
+// Give every division a place in the preview, using the same roster as /people.
+const memberCards: PreviewCard[] = peopleDivisions
+  .map((division) => publishedPeople.find((person) => person.division === division.id && person.portrait))
+  .filter((person): person is Person => Boolean(person))
+  .map((person) => ({
+    name: person.name,
+    role: person.role,
+    detail: personDivisionLabel(person),
+    href: `/people/${person.slug}`,
+    initials: personInitials(person),
+    portrait: person.portrait,
+    imageAlt: person.imageAlt,
+    portraitPosition: person.portraitPosition,
+    tone: peopleDivisions.find((division) => division.id === person.division)?.tone ?? "pink",
+  }));
 
 const ambassadorCards: PreviewCard[] = [
-  { name: "Aisha Noor", role: "Global Ambassador", location: "Kenya", initials: "AN", tone: "mint" },
-  { name: "Sofia Alvarez", role: "Global Ambassador", location: "Brazil", initials: "SA", tone: "pink" },
-  { name: "Mina Park", role: "Global Ambassador", location: "South Korea", initials: "MP", tone: "blue" },
-  { name: "Jonas Weber", role: "Global Ambassador", location: "Germany", initials: "JW", tone: "amber" },
+  { name: "Aisha Noor", role: "Global Ambassador", detail: "Kenya", initials: "AN", tone: "mint" },
+  { name: "Sofia Alvarez", role: "Global Ambassador", detail: "Brazil", initials: "SA", tone: "pink" },
+  { name: "Mina Park", role: "Global Ambassador", detail: "South Korea", initials: "MP", tone: "blue" },
+  { name: "Jonas Weber", role: "Global Ambassador", detail: "Germany", initials: "JW", tone: "amber" },
 ];
 
 const logosCards: LogoCard[] = [
@@ -61,17 +74,21 @@ const logosCards: LogoCard[] = [
   { name: "Youth Ranger Indonesia", logo: "/assets/partnership/Youth Ranger Indonesia.png" },
 ];
 
-function ProfileCard({ card }: { card: PreviewCard }) {
+function ProfileCard({ card, duplicate = false }: { card: PreviewCard; duplicate?: boolean }) {
   return (
     <article className="network-person-card">
       <span className="network-person-card__tape" aria-hidden="true" />
-      <div className={`network-person-card__placeholder network-person-card__placeholder--${card.tone}`} role="img" aria-label={`Portrait placeholder for ${card.name}`}>
+      {card.portrait ? (
+        <div className="network-person-card__portrait">
+          <Image src={card.portrait} alt={card.imageAlt ?? `Portrait of ${card.name}`} fill sizes="194px" style={{ objectPosition: card.portraitPosition ?? "50% 30%" }} />
+        </div>
+      ) : <div className={`network-person-card__placeholder network-person-card__placeholder--${card.tone}`} role="img" aria-label={`Portrait placeholder for ${card.name}`}>
         <span>{card.initials}</span>
         <small>Photo pending</small>
-      </div>
-      <h4>{card.name}</h4>
+      </div>}
+      <h4>{card.href ? <Link href={card.href} tabIndex={duplicate ? -1 : undefined}>{card.name}</Link> : card.name}</h4>
       <p>{card.role}</p>
-      <span>{card.location}</span>
+      <span>{card.detail}</span>
     </article>
   );
 }
@@ -82,7 +99,7 @@ function Marquee({ cards, reverse = false }: { cards: PreviewCard[]; reverse?: b
       <div className="network-marquee__track">
         {[0, 1].map((set) => (
           <div className="network-marquee__set" aria-hidden={set === 1 ? "true" : undefined} key={set}>
-            {cards.map((card) => <ProfileCard card={card} key={`${set}-${card.name}`} />)}
+            {cards.map((card) => <ProfileCard card={card} duplicate={set === 1} key={`${set}-${card.name}`} />)}
           </div>
         ))}
       </div>
@@ -92,29 +109,18 @@ function Marquee({ cards, reverse = false }: { cards: PreviewCard[]; reverse?: b
 
 function LogoCard({ card }: { card: LogoCard }) {
   return (
-    // <article className="relative flex w-40 shrink-0 flex-col items-center gap-3 rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-    //   <span
-    //     aria-hidden="true"
-    //     className="absolute -top-2 left-1/2 h-5 w-10 -translate-x-1/2 -rotate-2 rounded-sm bg-amber-200/70"
-    //   />
-    //   <div
-    //     role="img"
-    //     aria-label={`Logo placeholder for ${card.name}`}
-    //     className="flex h-[120px] w-[120px] items-center justify-center "
-    //   >
-        <Image src={card.logo} alt="" width={120} height={120} className="h-full w-full object-contain" />
-    //   </div>
-    //   <h4 className="text-center text-sm font-medium text-neutral-700">{card.name}</h4>
-    // </article>
+    <div className="flex h-24 w-40 items-center justify-center">
+      <Image src={card.logo} alt={card.name} width={160} height={96} sizes="160px" className="h-full w-full object-contain" />
+    </div>
   );
 }
 
 function MarqueeLogos({ cards }: { cards: LogoCard[] }) {
-  const REPEAT = 4; // ponytail: enough copies to outrun wide viewports
+  const REPEAT = 4; // Keep a full sequence on both sides of the visible loop.
   const looped = Array.from({ length: REPEAT }, () => cards).flat();
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="logo-marquee relative overflow-hidden" role="region" aria-label="Partner organizations" tabIndex={0}>
       <div className="logo-marquee-track flex w-max">
         {looped.map((card, i) => (
           <div className="mr-6 shrink-0" aria-hidden={i >= cards.length ? "true" : undefined} key={i}>
@@ -128,8 +134,15 @@ function MarqueeLogos({ cards }: { cards: LogoCard[] }) {
           animation-delay: 2s;
           animation-fill-mode: backwards;
         }
-        .logo-marquee-track:hover {
+        .logo-marquee:hover .logo-marquee-track,
+        .logo-marquee:focus-within .logo-marquee-track {
           animation-play-state: paused;
+        }
+        [data-motion="off"] .logo-marquee-track { animation: none; transform: none; }
+        [data-motion="off"] .logo-marquee { overflow-x: auto; }
+        [data-motion="off"] .logo-marquee-track > [aria-hidden="true"] { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+          html:not([data-motion]) .logo-marquee-track { animation: none; }
         }
         @keyframes marquee-scroll {
           from { transform: translateX(-37.5%); }
@@ -156,9 +169,8 @@ export function NetworkPreview() {
         <div className="network-preview__summary" data-reveal>
           <p>Meet the members building every program behind the scenes and the ambassadors carrying ideas between countries.</p>
           <dl>
-            <div><dt>42</dt><dd>members</dd></div>
-            <div><dt>17</dt><dd>countries</dd></div>
-            <div><dt>4</dt><dd>continents</dd></div>
+            <div><dt>{publishedPeople.length}</dt><dd>members</dd></div>
+            <div><dt>{peopleDivisions.length}</dt><dd>divisions</dd></div>
           </dl>
         </div>
       </Container>
@@ -167,7 +179,7 @@ export function NetworkPreview() {
         <section className="network-column" aria-labelledby="member-column-title">
           <header className="network-column__header">
             <span>01</span>
-            <div><p>Founders, board, staff & alumni</p><h3 id="member-column-title">Members</h3></div>
+            <div><p>The people behind every division</p><h3 id="member-column-title">Members</h3></div>
             <Link href="/people">Meet the team →</Link>
           </header>
           <Marquee cards={memberCards} />
@@ -187,14 +199,14 @@ export function NetworkPreview() {
         <section className="network-column network-column--logos" aria-labelledby="logo-column-title">
           <header className="network-column__header">
             <span>03</span>
-            <div><p>The contributor of our agenda</p><h3 id="ambassador-column-title">Partnership</h3></div>
-            <Link href="/ambassadors">Who we are worked with →</Link>
+            <div><p>The contributors to our work</p><h3 id="logo-column-title">Partnerships</h3></div>
+            <Link href="/partner">Partner with us →</Link>
           </header>
           <MarqueeLogos cards={logosCards} />
         </section>
       </Container>
 
-      <p className="network-preview__disclaimer">Demo profiles shown as layout placeholders. Approved identities and portraits will replace them.</p>
+      <p className="network-preview__disclaimer">Global Ambassador profiles are placeholders while introductions are being prepared.</p>
     </section>
 
 

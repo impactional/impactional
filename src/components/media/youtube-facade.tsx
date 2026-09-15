@@ -14,6 +14,7 @@ export function YouTubeFacade({ video }: { video: VideoEntry }) {
       <div className="video-card__frame">
         {playing ? (
           <iframe
+            data-user-video-active="true"
             src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1`}
             title={video.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -34,4 +35,3 @@ export function YouTubeFacade({ video }: { video: VideoEntry }) {
     </article>
   );
 }
-

@@ -3,6 +3,8 @@ export type SiteNavigationItem = {
   href: `/${string}`;
 };
 
+export const siteUrl = "https://www.impactional.org";
+
 export const siteNavigation: SiteNavigationItem[] = [
   { label: "Programs", href: "/programs" },
   { label: "Impact", href: "/impact" },
@@ -21,4 +23,3 @@ export const contact = {
     tiktok: "https://www.tiktok.com/@impactional",
   },
 } as const;
-

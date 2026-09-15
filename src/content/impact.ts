@@ -23,9 +23,9 @@ export const impactMetrics: ImpactMetric[] = [
 ];
 
 export const programImpact = [
-  { title: "Global Ambassador Program", stat: "52 ambassadors", detail: "25 countries · 75 activities · 29K+ participants, projects, and social interactions" },
-  { title: "ImpactYou!", stat: "52K+ audience", detail: "20 activists from three countries · 250 participants · reach across 50+ countries" },
-  { title: "Changemaker Catalyst", stat: "100 changemakers", detail: "30 countries · 10+ professors and CEOs · 10+ scalable project ideas" },
+  { title: "Global Ambassador Program", href: "/programs/global-ambassador-program", stat: "52 ambassadors", detail: "25 countries · 75 activities · 29K+ participants, projects, and social interactions" },
+  { title: "ImpactYou!", href: "/programs/impactyou", stat: "52K+ audience", detail: "20 activists from three countries · 250 participants · reach across 50+ countries" },
+  { title: "Changemaker Catalyst", href: "/programs/changemaker-catalyst-programme", stat: "100 changemakers", detail: "30 countries · 10+ professors and CEOs · 10+ scalable project ideas" },
 ] as const;
 
 export const history = [

@@ -1,8 +1,10 @@
 import { expect, test } from "@playwright/test";
+import { GYC_SESSION_KEY } from "../../src/content/global-youth-circle";
 
 // iOS Low Power Mode makes Safari report prefers-reduced-motion: reduce for the whole
 // browser, which used to silently disable every animation on the site.
 test.beforeEach(async ({ page }) => {
+  await page.addInitScript((key) => window.sessionStorage.setItem(key, "1"), GYC_SESSION_KEY);
   await page.emulateMedia({ reducedMotion: "reduce" });
 });
 

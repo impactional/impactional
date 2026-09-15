@@ -118,25 +118,6 @@ export function LandingMotion({ children }: { children: ReactNode }) {
           .to("[data-hero-orbit]", { rotate: 42, scale: 1.12, ease: "none" }, 0)
           .to("[data-hero-copy]", { yPercent: -8, ease: "none" }, 0);
 
-        const section = document.querySelector<HTMLElement>("[data-programs]");
-        const track = document.querySelector<HTMLElement>("[data-program-track]");
-        if (section && track) {
-          const distance = () => Math.max(0, track.scrollWidth - window.innerWidth + 112);
-          gsap.to(track, {
-            x: () => -distance(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 72%",
-              end: "bottom 28%",
-              scrub: 1,
-              invalidateOnRefresh: true,
-              onUpdate: (self) =>
-                section.style.setProperty("--program-progress", `${self.progress * 100}%`),
-            },
-          });
-        }
-
         const spotlightImage = document.querySelector<HTMLElement>("[data-spotlight-image]");
         if (spotlightImage) {
           gsap.to(spotlightImage, {

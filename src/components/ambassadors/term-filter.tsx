@@ -8,7 +8,7 @@ export function TermFilter({ terms, activeTerm }: { terms: readonly string[]; ac
   const searchParams = useSearchParams();
 
   return (
-    <div className="term-filter" aria-label="Ambassador term">
+    <div className="term-filter" role="group" aria-label="Ambassador term">
       {terms.map((term) => (
         <button
           key={term}
@@ -17,7 +17,7 @@ export function TermFilter({ terms, activeTerm }: { terms: readonly string[]; ac
           onClick={() => {
             const next = new URLSearchParams(searchParams.toString());
             next.set("term", term);
-            router.push(`${pathname}?${next.toString()}`);
+            router.push(`${pathname}?${next.toString()}`, { scroll: false });
           }}
         >
           Term {term}
@@ -26,4 +26,3 @@ export function TermFilter({ terms, activeTerm }: { terms: readonly string[]; ac
     </div>
   );
 }
-
