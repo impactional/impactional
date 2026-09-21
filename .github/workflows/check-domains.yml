@@ -11,7 +11,7 @@ jobs:
       - name: Check authoritative DNS from outside the local network
         shell: bash
         run: |
-          for ns in nsid1.rumahweb.com nsid2.rumahweb.net nsid3.rumahweb.biz nsid4.rumahweb.org; do
+          for ns in ns1.vercel-dns.com ns2.vercel-dns.com nsid1.rumahweb.com nsid2.rumahweb.net nsid3.rumahweb.biz nsid4.rumahweb.org; do
             echo "Nameserver: $ns"
             dig @"$ns" impactional.net A +time=3 +tries=1 +noall +answer +comments || true
             dig @"$ns" _acme-challenge.impactional.net TXT +time=3 +tries=1 +noall +answer +comments || true

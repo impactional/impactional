@@ -1,16 +1,22 @@
 # Deployment and domain ownership
 
-The canonical production URL is https://impactional.net. `www.impactional.net` redirects to the apex with HTTP 308. Vercel hosts the `impactional` project in the existing team; Rumahweb manages DNS. Keep historical `.org/post/...` article links until those articles have actually migrated.
+The canonical production URL is https://impactional.net. `www.impactional.net` redirects to the apex with HTTP 308. Vercel hosts the `impactional` project in the existing team and manages DNS; Rumahweb remains the registrar. Keep historical `.org/post/...` article links until those articles have actually migrated.
 
-DNS records saved in Rumahweb on 2026-09-21 (TTL 300):
+## DNS and HTTPS
+
+The domain is registered at Rumahweb, with authoritative DNS managed by Vercel. The registrar nameservers are `ns1.vercel-dns.com` and `ns2.vercel-dns.com` (confirmed in the .net registry on 2026-09-21).
 
 | Name | Type | Destination |
 | --- | --- | --- |
-| `@` | A | `76.76.21.21` |
-| `www` | CNAME | `c21ccbb43de0f1a0.vercel-dns-017.com` |
-| `gyc` | CNAME | `da53d7f0a504d050.vercel-dns-017.com` |
+| `@` | ALIAS | Vercel-managed `c21ccbb43de0f1a0.vercel-dns-017.com` |
+| `www` | CNAME | `c21ccbb43de0f1a0.vercel-dns-017.com.` |
+| `gyc` | CNAME | `da53d7f0a504d050.vercel-dns-017.com.` |
 
-Nameservers remain Rumahweb's `nsid1.rumahweb.com`, `nsid2.rumahweb.net`, `nsid3.rumahweb.biz`, and `nsid4.rumahweb.org`. The apex was updated to the address requested by Vercel CLI during TLS recovery on 2026-09-21; the CNAME destinations came from the project API. re-check Vercel's Domains settings before future DNS changes. DNS zone activation and certificate issuance may lag behind a successful save. A Vercel deployment marked Ready does not by itself prove that the custom domain resolves.
+Vercel also manages the default CAA records, including Let's Encrypt. Change DNS records in Vercel, not Rumahweb's old DNS zone. That old zone is retained during the nameserver transition so cached delegations continue routing to Vercel. It has an apex A record of `76.76.21.21` and equivalent `www`/`gyc` CNAMEs.
+
+During HTTPS recovery on 2026-09-21, public HTTP reached the site while TLS failed from both a local client and a GitHub-hosted runner. Vercel's automatic HTTP validation and its manual TXT pretest failed despite public resolvers answering the configured records. DNS was moved to Vercel after copying all required routing and certificate-verification records. The pending DNS-01 certificate order covers the apex, `www`, and `gyc`; its challenge records are present in both zones. No private certificate keys are stored in the repository.
+
+A successful DNS save or Ready deployment does not prove HTTPS is live. Verify the deployed certificate, redirects, and responses before marking recovery complete.
 
 ## Org to personal sync
 
@@ -30,4 +36,4 @@ The GYC deployment was uploaded directly. Automatic Git deployment for GYC is no
 
 ## Domain diagnostics
 
-Run `.github/workflows/check-domains.yml` manually to inspect all four authoritative nameservers and verify HTTP/HTTPS from a GitHub-hosted runner. It uses no credentials and does not bypass certificate checks.
+Run `.github/workflows/check-domains.yml` manually to inspect the Vercel nameservers and the previous Rumahweb nameservers during migration and verify HTTP/HTTPS from a GitHub-hosted runner. It uses no credentials and does not bypass certificate checks.
