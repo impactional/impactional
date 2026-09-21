@@ -6,11 +6,11 @@ DNS records saved in Rumahweb on 2026-09-21 (TTL 300):
 
 | Name | Type | Destination |
 | --- | --- | --- |
-| `@` | A | `216.198.79.1` |
+| `@` | A | `76.76.21.21` |
 | `www` | CNAME | `c21ccbb43de0f1a0.vercel-dns-017.com` |
 | `gyc` | CNAME | `da53d7f0a504d050.vercel-dns-017.com` |
 
-Nameservers remain Rumahweb's `nsid1.rumahweb.com`, `nsid2.rumahweb.net`, `nsid3.rumahweb.biz`, and `nsid4.rumahweb.org`. These destinations were returned by Vercel for the projects; re-check Vercel's Domains settings before future DNS changes. DNS zone activation and certificate issuance may lag behind a successful save. A Vercel deployment marked Ready does not by itself prove that the custom domain resolves.
+Nameservers remain Rumahweb's `nsid1.rumahweb.com`, `nsid2.rumahweb.net`, `nsid3.rumahweb.biz`, and `nsid4.rumahweb.org`. The apex was updated to the address requested by Vercel CLI during TLS recovery on 2026-09-21; the CNAME destinations came from the project API. re-check Vercel's Domains settings before future DNS changes. DNS zone activation and certificate issuance may lag behind a successful save. A Vercel deployment marked Ready does not by itself prove that the custom domain resolves.
 
 ## Org to personal sync
 
@@ -27,3 +27,7 @@ Domain: https://gyc.impactional.net, separate Vercel project `gyc`.
 Until the standalone site is ready, GYC redirects temporarily to the published program page on the main website. Program dates and registration remain unannounced.
 
 The GYC deployment was uploaded directly. Automatic Git deployment for GYC is not connected because the current Vercel GitHub integration cannot access the new org repository. See the GYC README for the deployment instructions and the Git connection step.
+
+## Domain diagnostics
+
+Run `.github/workflows/check-domains.yml` manually to inspect all four authoritative nameservers and verify HTTP/HTTPS from a GitHub-hosted runner. It uses no credentials and does not bypass certificate checks.
