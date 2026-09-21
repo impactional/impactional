@@ -14,7 +14,9 @@ The domain is registered at Rumahweb, with authoritative DNS managed by Vercel. 
 
 Vercel also manages the default CAA records, including Let's Encrypt. Change DNS records in Vercel, not Rumahweb's old DNS zone. That old zone is retained during the nameserver transition so cached delegations continue routing to Vercel. It has an apex A record of `76.76.21.21` and equivalent `www`/`gyc` CNAMEs.
 
-During HTTPS recovery on 2026-09-21, public HTTP reached the site while TLS failed from both a local client and a GitHub-hosted runner. Vercel's automatic HTTP validation and its manual TXT pretest failed despite public resolvers answering the configured records. DNS was moved to Vercel after copying all required routing and certificate-verification records. The pending DNS-01 certificate order covers the apex, `www`, and `gyc`; its challenge records are present in both zones. No private certificate keys are stored in the repository.
+During HTTPS recovery on 2026-09-21, public HTTP reached the site while TLS failed from both a local client and a GitHub-hosted runner. Vercel's automatic HTTP validation and its manual TXT pretest failed despite public resolvers answering the configured records. DNS was moved to Vercel after copying all required routing and certificate-verification records. Vercel then reported the domain correctly configured and successfully issued a Let's Encrypt certificate covering the apex, `www`, and `gyc`. Automatic renewal is enabled; the certificate issued during recovery expires on 2026-12-20. No private certificate keys are stored in the repository.
+
+Recovery was verified at approximately 19:31 WIB on 2026-09-21: all three hosts presented a valid certificate, HTTP redirected to HTTPS, the apex returned 200, `www` redirected to the apex with 308, and `gyc` redirected to the main site's Global Youth Circle program page with 307. The independent [GitHub-hosted domain check also passed](https://github.com/impactional/impactional/actions/runs/35599817344).
 
 A successful DNS save or Ready deployment does not prove HTTPS is live. Verify the deployed certificate, redirects, and responses before marking recovery complete.
 
