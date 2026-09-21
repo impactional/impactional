@@ -35,10 +35,13 @@ export const metadata: Metadata = {
   title: "Impactional — Your ideas can move the world",
   description:
     "An international youth-led community connecting young changemakers with the people, perspectives, and tools to create meaningful change.",
+  twitter: { card: "summary_large_image" },
   openGraph: {
     title: "Impactional — Your ideas can move the world",
     description: "Meet the global youth community turning conviction into collective action.",
     type: "website",
+    siteName: "Impactional",
+    locale: "en_US",
   },
 };
 

@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 import { PageIntro } from "@/components/ui/page-intro";
 import { contact } from "@/content/site";
 
-export const metadata: Metadata = { title: "Partner with Impactional", description: "Collaborate with Impactional on youth programs, knowledge, platforms, and cross-border opportunities." };
+export const metadata: Metadata = { title: "Partner with Impactional", alternates: { canonical: "/partner" }, openGraph: { url: "/partner", title: "Partner with Impactional" }, description: "Collaborate with Impactional on youth programs, knowledge, platforms, and cross-border opportunities." };
 
 const modes = [
   ["Build a program", "Co-create a learning experience grounded in youth voice and measurable community action."],

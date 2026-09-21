@@ -1,0 +1,43 @@
+name: Sync personal deployment repository
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-personal-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'impactional/impactional'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Configure repository-scoped deployment key
+        env:
+          MIRROR_SSH_KEY: ${{ secrets.PERSONAL_MIRROR_SSH_KEY }}
+          MIRROR_KNOWN_HOSTS: ${{ vars.MIRROR_KNOWN_HOSTS }}
+        run: |
+          test -n "$MIRROR_SSH_KEY" || { echo 'Missing PERSONAL_MIRROR_SSH_KEY'; exit 1; }
+          test -n "$MIRROR_KNOWN_HOSTS" || { echo 'Missing MIRROR_KNOWN_HOSTS'; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$MIRROR_SSH_KEY" > ~/.ssh/mirror_key
+          chmod 600 ~/.ssh/mirror_key
+          printf '%s\n' "$MIRROR_KNOWN_HOSTS" > ~/.ssh/known_hosts
+      - name: Fast-forward personal main
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/mirror_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes
+        run: bash scripts/sync-personal.sh
+      - name: Remove temporary key
+        if: always()
+        run: rm -f ~/.ssh/mirror_key

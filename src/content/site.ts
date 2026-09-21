@@ -3,7 +3,7 @@ export type SiteNavigationItem = {
   href: `/${string}`;
 };
 
-export const siteUrl = "https://www.impactional.org";
+export const siteUrl = "https://impactional.net";
 
 export const siteNavigation: SiteNavigationItem[] = [
   { label: "Programs", href: "/programs" },
