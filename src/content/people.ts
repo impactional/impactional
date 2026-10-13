@@ -3,6 +3,9 @@ import roster from "@/content/people-roster.json";
 export type PersonCategory = "founder-advisor" | "board" | "staff" | "member-of-month" | "alumni";
 
 export const peopleDivisions = [
+  { id: "president", label: "President", tone: "pink" },
+  { id: "vice-president", label: "Vice President", tone: "blue" },
+  { id: "board-of-advisors", label: "Board of Advisors", tone: "amber" },
   { id: "ambassador-management", label: "Ambassador Management", tone: "pink" },
   { id: "business-development", label: "Business Development", tone: "blue" },
   { id: "creative", label: "Creative", tone: "amber" },
