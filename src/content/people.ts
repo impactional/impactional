@@ -3,6 +3,9 @@ import roster from "@/content/people-roster.json";
 export type PersonCategory = "founder-advisor" | "board" | "staff" | "member-of-month" | "alumni";
 
 export const peopleDivisions = [
+  { id: "founders", label: "Founders", tone: "purple" },
+  { id: "executive", label: "President & Vice President", tone: "mint" },
+  { id: "secretary", label: "Secretary", tone: "amber" },
   { id: "ambassador-management", label: "Ambassador Management", tone: "pink" },
   { id: "business-development", label: "Business Development", tone: "blue" },
   { id: "creative", label: "Creative", tone: "amber" },
@@ -10,6 +13,7 @@ export const peopleDivisions = [
   { id: "human-resources", label: "Human Resources", tone: "pink" },
   { id: "it", label: "IT", tone: "blue" },
   { id: "marketing", label: "Marketing", tone: "amber" },
+  
 ] as const;
 
 export type PersonDivision = (typeof peopleDivisions)[number]["id"];
