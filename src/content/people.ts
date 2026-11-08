@@ -6,14 +6,14 @@ export const peopleDivisions = [
   { id: "founders", label: "Founders", tone: "purple" },
   { id: "executive", label: "President & Vice President", tone: "mint" },
   { id: "secretary", label: "Secretary", tone: "amber" },
+  { id: "board-of-advisors", label: "Board of Advisors", tone: "amber" },
   { id: "ambassador-management", label: "Ambassador Management", tone: "pink" },
+  { id: "it", label: "IT", tone: "blue" },
   { id: "business-development", label: "Business Development", tone: "blue" },
   { id: "creative", label: "Creative", tone: "amber" },
   { id: "flagship-program", label: "Flagship Program", tone: "mint" },
   { id: "human-resources", label: "Human Resources", tone: "pink" },
-  { id: "it", label: "IT", tone: "blue" },
   { id: "marketing", label: "Marketing", tone: "amber" },
-  
 ] as const;
 
 export type PersonDivision = (typeof peopleDivisions)[number]["id"];
