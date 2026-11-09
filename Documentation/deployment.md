@@ -28,6 +28,14 @@ Authentication uses a dedicated write deploy key for the personal repository, st
 
 The sync never force-pushes or deletes refs. If personal `main` gains independent commits, bring them into the org's `main` and retry. Do not push site changes directly to personal `main`. The repository guard prevents recursion when the workflow is copied into the personal repository.
 
+## Trying changes on Vercel
+
+`pnpm redeploy` uploads your local files, uncommitted edits included, as a Vercel preview deployment and prints its URL. Previews never touch impactional.net. They sit behind Vercel Authentication, so viewers need a Vercel login with access to the team. `pnpm redeploy:watch` deploys a preview right away, then deploys again whenever files change (after 10 seconds without edits). Each run counts toward the team's daily deployment limit.
+
+`pnpm redeploy --prod` makes a production deployment from your local files after you type `production` to confirm. That build stays live until the next push to `main` redeploys production from Git, so use it only to try something out. Releases still go through the org to personal sync above.
+
+The script runs a pinned Vercel CLI through `pnpm dlx` and needs a CLI login with access to the `bibobaggins-projects` team (`pnpm dlx vercel@65.2.0 login`). `.vercelignore` mirrors `.gitignore` because the CLI does not read `.gitignore`. Keep the two in sync.
+
 ## Global Youth Circle
 
 Repository: https://github.com/impactional/gyc (private starter).

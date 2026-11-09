@@ -1,0 +1,15 @@
+# The Vercel CLI (pnpm redeploy) ignores .gitignore, so this mirrors it.
+# A CLI preview then uploads the same files a Git deployment builds from.
+# Keep this in sync with .gitignore.
+node_modules/
+.next/
+.codex-tmp/
+out/
+coverage/
+playwright-report/
+test-results/
+.env*
+!.env.example
+*.tsbuildinfo
+.DS_Store
+tmp/
