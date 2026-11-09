@@ -16,7 +16,8 @@ type PreviewCard = {
   portrait?: string;
   imageAlt?: string;
   portraitPosition?: string;
-  tone: "pink" | "blue" | "mint" | "amber";
+  // Follow the division tones so a new tone (e.g. Founders' purple) can't break the build.
+  tone: (typeof peopleDivisions)[number]["tone"];
 };
 
 type LogoCard = {
